@@ -1,0 +1,9 @@
+# Results
+
+mapreduce mean = 152.72068718682894
+mapreduce var = 57672.84569843358
+
+standart check mean = 152.7206871868289
+standart check var = 57672.84569843359
+
+
