@@ -1,0 +1,10 @@
+SELECT artist_mb FROM artists WHERE scrobbles_lastfm in (SELECT max(scrobbles_lastfm) FROM artists);
+
+
+//result
++--------------+
+|  artist_mb   |
++--------------+
+| The Beatles  |
++--------------+
+

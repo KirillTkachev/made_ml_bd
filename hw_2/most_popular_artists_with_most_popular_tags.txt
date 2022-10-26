@@ -1,0 +1,31 @@
+WITH tags AS (
+    SELECT tag, COUNT(*) AS count 
+    FROM artists LATERAL VIEW EXPLODE(SPLIT(tags_lastfm, ';')) 
+    tags AS tag WHERE tag <> '' GROUP BY tag ORDER BY count DESC LIMIT 10
+    ),
+artists_tags AS (
+    SELECT tag, artist_lastfm, listeners_lastfm
+    FROM artists LATERAL VIEW EXPLODE(SPLIT(tags_lastfm, ';')) tags AS tag
+)
+SELECT DISTINCT artist_lastfm, listeners_lastfm FROM artists_tags
+WHERE tag IN (SELECT tag FROM tags)
+ORDER BY listeners_lastfm DESC LIMIT 10;
+
+
+//result
+
++------------------------+-------------------+
+|     artist_lastfm      | listeners_lastfm  |
++------------------------+-------------------+
+| Coldplay               | 5381567           |
+| Radiohead              | 4732528           |
+| Red Hot Chili Peppers  | 4620835           |
+| Rihanna                | 4558193           |
+| Eminem                 | 4517997           |
+| The Killers            | 4428868           |
+| Kanye West             | 4390502           |
+| Nirvana                | 4272894           |
+| Muse                   | 4089612           |
+| Queen                  | 4023379           |
++------------------------+-------------------+
+

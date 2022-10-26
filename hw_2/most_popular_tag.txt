@@ -1,0 +1,13 @@
+SELECT tag, COUNT(*) AS count 
+FROM artists LATERAL VIEW explode(SPLIT(tags_lastfm, ';'))
+tags AS tag WHERE tag <> '' GROUP BY tag ORDER BY count DESC LIMIT 1;
+
+
+//result
+
++-------------+--------+
+|     tag     | count  |
++-------------+--------+
+|  seen live  | 81278  |
++-------------+--------+
+

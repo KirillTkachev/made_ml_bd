@@ -1,0 +1,22 @@
+SELECT DISTINCT artist_lastfm, listeners_lastfm 
+FROM artists LATERAL VIEW explode(split(tags_lastfm, '; ')) tags AS tag
+WHERE tag = 'black metal' 
+ORDER BY listeners_lastfm DESC LIMIT 10;
+
++--------------------+-------------------+
+|   artist_lastfm    | listeners_lastfm  |
++--------------------+-------------------+
+| Britney Spears     | 3255085           |
+| Avril Lavigne      | 2627363           |
+| Justin Bieber      | 1628031           |
+| In Flames          | 1185307           |
+| One Direction      | 1051806           |
+| Lamb of God        | 997802            |
+| Selena Gomez       | 980214            |
+| Children of Bodom  | 948694            |
+| Sepultura          | 886301            |
+| Opeth              | 805079            |
++--------------------+-------------------+
+
+//Я сначала не поверил, а потом проверил. Набор тегов, конечно, интересный у исполнителей...
+
